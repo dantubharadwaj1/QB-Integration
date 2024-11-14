@@ -30,7 +30,7 @@ import com.intuit.ipp.util.DateUtils;
 public final class BillHelper {
 
 	private BillHelper() {
-		
+
 	}
 
 	public static Bill getBillFields(DataService service) throws FMSException, ParseException {
@@ -44,7 +44,7 @@ public final class BillHelper {
 		bill.setAPAccountRef(AccountHelper.getAccountRef(liabilityAccount));
 
 		Line line1 = new Line();
-		line1.setAmount(new BigDecimal("300.00"));
+		line1.setAmount(new BigDecimal("30.00"));
 		line1.setDetailType(LineDetailTypeEnum.ACCOUNT_BASED_EXPENSE_LINE_DETAIL);
 		AccountBasedExpenseLineDetail detail = new AccountBasedExpenseLineDetail();
 		Account account = AccountHelper.getExpenseBankAccount(service);
@@ -67,8 +67,8 @@ public final class BillHelper {
 
 		bill.setShipAddr(Address.getPhysicalAddress());
 
-		//bill.setTotalAmt(new BigDecimal("30.00"));
-		bill.setTxnDate(DateUtils.getDateWithPrevDays(10));
+		bill.setTotalAmt(new BigDecimal("30.00"));
+		bill.setTxnDate(DateUtils.getCurrentDateTime());
 		bill.setDueDate(DateUtils.getDateWithNextDays(45));
 
 		return bill;
@@ -85,17 +85,17 @@ public final class BillHelper {
 	private static Bill createBill(DataService service) throws FMSException, ParseException {
 		return service.add(getBillFields(service));
 	}
-	
+
 	public static BillPayment getBillPaymentFields(DataService service) throws FMSException, ParseException {
 		BillPayment billPayment = new BillPayment();
 
 		billPayment.setTxnDate(DateUtils.getCurrentDateTime());
-		
+
 		billPayment.setPrivateNote("Check billPayment");
 
 		Vendor vendor = VendorHelper.getVendor(service);
 		billPayment.setVendorRef(VendorHelper.getVendorRef(vendor));
-		
+
 		Line line1 = new Line();
 		line1.setAmount(new BigDecimal("30"));
 		List<LinkedTxn> linkedTxnList1 = new ArrayList<LinkedTxn>();
@@ -105,7 +105,7 @@ public final class BillHelper {
 		linkedTxn1.setTxnType(TxnTypeEnum.BILL.value());
 		linkedTxnList1.add(linkedTxn1);
 		line1.setLinkedTxn(linkedTxnList1);
-		
+
 		List<Line> lineList = new ArrayList<Line>();
 		lineList.add(line1);
 		billPayment.setLine(lineList);
@@ -113,12 +113,12 @@ public final class BillHelper {
 		BillPaymentCheck billPaymentCheck = new BillPaymentCheck();
 		Account bankAccount = AccountHelper.getCheckBankAccount(service);
 		billPaymentCheck.setBankAccountRef(AccountHelper.getAccountRef(bankAccount));
-		
-		billPaymentCheck.setCheckDetail(PaymentHelper.getCheckPayment());		
+
+		billPaymentCheck.setCheckDetail(PaymentHelper.getCheckPayment());
 
 		billPaymentCheck.setPayeeAddr(Address.getPhysicalAddress());
 		billPaymentCheck.setPrintStatus(PrintStatusEnum.NEED_TO_PRINT);
-		
+
 		billPayment.setCheckPayment(billPaymentCheck);
 		billPayment.setPayType(BillPaymentTypeEnum.CHECK);
 		billPayment.setTotalAmt(new BigDecimal("30"));

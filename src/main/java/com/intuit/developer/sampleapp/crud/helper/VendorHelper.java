@@ -22,50 +22,43 @@ import com.intuit.ipp.util.DateUtils;
  *
  */
 public final class VendorHelper {
-	
+
 	private VendorHelper() {
-		
+
 	}
 
 	public static Vendor getVendor(DataService service) throws FMSException, ParseException {
 		List<Vendor> vendors = (List<Vendor>) service.findAll(new Vendor());
-		
+
 		if (!vendors.isEmpty()) {
 			return vendors.get(0);
 		}
 		return createVendor(service);
 	}
-	
+
 	private static Vendor createVendor(DataService service) throws FMSException, ParseException {
 		return service.add(getVendorWithAllFields(service));
 	}
 
 	public static ReferenceType getVendorRef(Vendor vendor) {
-			ReferenceType vendorRef = new ReferenceType();
-			vendorRef.setName(vendor.getDisplayName());
-			vendorRef.setValue(vendor.getId());
-			return vendorRef;
-	  }
-	
+		ReferenceType vendorRef = new ReferenceType();
+		vendorRef.setName(vendor.getDisplayName());
+		vendorRef.setValue(vendor.getId());
+		return vendorRef;
+	}
+
 	public static Vendor getVendorWithMandatoryFields() throws FMSException {
 		Vendor vendor = new Vendor();
 		// Mandatory Fields
-		vendor.setDisplayName(RandomStringUtils.randomAlphanumeric(8));		
+		vendor.setDisplayName(RandomStringUtils.randomAlphanumeric(8));
 		return vendor;
 
 	}
-	
+
 	public static Vendor getVendorWithAllFields(DataService service) throws FMSException, ParseException {
 		Vendor vendor = new Vendor();
-		vendor.setDisplayName("SGITS Global");
-		vendor.setAcctNum("12312312312");
-		vendor.setCompanyName("SharpGurus Inc");
-		//vendor.setBalance(BigDecimal.valueOf(10000));
-		vendor.setContactName("Vijay Kumar Cherukumudi");
-		vendor.setTaxIdentifier("1111111");
-
 		// Mandatory Fields
-		/*vendor.setDisplayName(RandomStringUtils.randomAlphanumeric(8));
+		vendor.setDisplayName(RandomStringUtils.randomAlphanumeric(8));
 
 		// Optional Fields
 		vendor.setCompanyName("ABC Corp");
@@ -75,28 +68,28 @@ public final class VendorHelper {
 		vendor.setFamilyName(RandomStringUtils.randomAlphanumeric(8));
 		vendor.setSuffix("Sr.");
 		vendor.setPrintOnCheckName("MS");
-			
+
 		vendor.setBillAddr(Address.getPhysicalAddress());
-		
+
 		vendor.setTaxIdentifier("1111111");
-		
+
 		vendor.setPrimaryEmailAddr(Email.getEmailAddress());
-		
+
 		vendor.setPrimaryPhone(Telephone.getPrimaryPhone());
 		vendor.setAlternatePhone(Telephone.getAlternatePhone());
 		vendor.setMobile(Telephone.getMobilePhone());
 		vendor.setFax(Telephone.getFax());
-	
+
 		vendor.setWebAddr(Address.getWebSiteAddress());
-		
+
 		vendor.setDomain("QBO");
 
 		Term term = TermHelper.getTerm(service);
 
 		vendor.setTermRef(TermHelper.getTermRef(term));
-		
+
 		vendor.setAcctNum("11223344");
-		vendor.setBalance(new BigDecimal("0"));*/
+		vendor.setBalance(new BigDecimal("0"));
 		try {
 			vendor.setOpenBalanceDate(DateUtils.getCurrentDateTime());
 		} catch (ParseException e) {

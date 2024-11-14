@@ -8,42 +8,33 @@ import com.intuit.ipp.data.WebSiteAddress;
  *
  */
 public final class Address {
-	
+
 	private Address() {
-		
+
 	}
 
 	public static PhysicalAddress getPhysicalAddress() {
-		PhysicalAddress physicalAddress = new PhysicalAddress();
-		/*billingAdd.setLine1("123 Main St");
+		PhysicalAddress billingAdd = new PhysicalAddress();
+		billingAdd.setLine1("123 Main St");
 		billingAdd.setCity("Mountain View");
 		billingAdd.setCountry("United States");
 		billingAdd.setCountrySubDivisionCode("CA");
-		billingAdd.setPostalCode("94043");*/
-
-		physicalAddress.setCity("Hyderabad");
-		physicalAddress.setCountry("India");
-		physicalAddress.setLine1("SGITS-Global, Prashant Hills");
-		physicalAddress.setLine2("Khajaguda, Raidurg");
-		physicalAddress.setCountryCode("IN");
-		physicalAddress.setPostalCode("500032");
-		physicalAddress.setLat("17.420275006758008");
-		physicalAddress.setLong("78.38033480316356");
-		return physicalAddress;
+		billingAdd.setPostalCode("94043");
+		return billingAdd;
 	}
-	
+
 	public static WebSiteAddress getWebSiteAddress() {
 		WebSiteAddress webSite = new WebSiteAddress();
-		webSite.setURI("http://sgits.com");
+		webSite.setURI("http://abccorp.com");
 		webSite.setDefault(true);
 		webSite.setTag("Business");
 		return webSite;
 	}
-	
+
 	public static PhysicalAddress getAddressForAST() {
 		PhysicalAddress billingAdd = new PhysicalAddress();
-		billingAdd.setLine1("SGITS-Global, Prashant Hills");
-		billingAdd.setLine2("Khajaguda, Raidurg, Hyderabad 500032");
+		billingAdd.setLine1("2700 Coast Ave");
+		billingAdd.setLine2("MountainView, CA 94043");
 		return billingAdd;
 	}
 
